@@ -10,18 +10,20 @@ def main():
 
     url = 'http://api.openweathermap.org/data/2.5/forecast'
     data = requests.get(url, params=query).json()
-    date_time = 0
+    date = 0
 
     print('The Following is your 5 day forecast every 3 hours.')
 
-    while date_time < 40:
-        weather_temp = data['list'][date_time]['main']['temp']
-        weather_description = data['list'][date_time]['weather'][0]['description']
-        wind_speed = data['list'][date_time]['wind']['speed']
+    while date < 40:
+        weather_temp = data['list'][date]['main']['temp']
+        weather_description = data['list'][date]['weather'][0]['description']
+        wind_speed = data['list'][date]['wind']['speed']
+        date_time = data['list'][date]['dt_txt']
+        '''I decided to go with UTC so that they can see the local Date and Time for where they are searching'''
 
-        print(f'Temperature: {weather_temp:.2f}F\nWeather Description: {weather_description}\nWind Speed: {wind_speed:.2f}MPH\n')  
+        print(f'Date & Time: {date_time}\nTemperature: {weather_temp:.2f}F\nWeather Description: {weather_description}\nWind Speed: {wind_speed:.2f}MPH\n')  
 
-        date_time += 1
+        date += 1
 
     else:
         print('This was your 5 day forecast!!')
